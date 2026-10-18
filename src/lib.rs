@@ -515,6 +515,9 @@ pub extern "C" fn gray_image_free(img: *mut GrayImage) {
     unsafe {
         let img: &mut GrayImage = &mut *img;
 
+        if img.bytes.ptr.is_null() {
+            return;
+        }
         let slice: &mut [u8] = std::slice::from_raw_parts_mut(
             img.bytes.ptr as *const u8 as *mut u8,
             img.bytes.len as usize,

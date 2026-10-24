@@ -5,7 +5,7 @@
 #import "Math";
 #import "Hash_Table";
 #import "stb_image_write";
-#import,file "../fontutils.jai";
+#import,dir "..";
 
 // This is just some example usage of the Rust fontutils crate from Jai.
 // For a real engine you probably do not want to couple fonts and atlasses together.

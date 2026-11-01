@@ -8,16 +8,14 @@ Bindings for the Jai programming language. I don't want to rewrite all these wel
 # Building:
 
 
-For Linux on Linux:
+On Linux:
 ```
+
+# for linux:
 cargo build --release
 cp target/release/libfontutils.so lib/
 
-```
-
-
-Cross compile for Windows on Linux:
-```
+# cross compile for windows:
 cargo zigbuild --release --target x86_64-pc-windows-gnu
 cp target/x86_64-pc-windows-gnu/release/fontutils.dll lib/
 cp target/x86_64-pc-windows-gnu/release/libfontutils.dll.a lib/fontutils.lib

@@ -86,7 +86,9 @@ impl Font {
         if let Some(h_line_metrics) = self.font.horizontal_line_metrics(font_size) {
             LineMetrics {
                 ascent: h_line_metrics.ascent,
-                descent: h_line_metrics.descent,
+                // we negatie it, because we want both ascent and descent to be positive!
+                // caused a lot of bugs in the past already to have this negative... - Tadeo, Oct. 2026
+                descent: -h_line_metrics.descent,
                 line_gap: h_line_metrics.line_gap,
             }
         } else {
@@ -145,7 +147,7 @@ impl Font {
         res.info = GlyphInfo {
             kind: GlyphKind::Default,
             xmin: f_metrics.bounds.xmin,
-            ymin: f_metrics.bounds.ymin - f_metrics.bounds.height,
+            ymin: -(f_metrics.bounds.ymin - f_metrics.bounds.height),
             width: f_metrics.bounds.width,
             height: f_metrics.bounds.height,
             advance: f_metrics.advance_width,

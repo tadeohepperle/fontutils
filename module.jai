@@ -79,7 +79,7 @@ copy_shared_library :: (output_directory: string) -> bool {
     #if OS == .WINDOWS {
         return copy_file(tprint("%/lib/fontutils.dll", #filepath), tprint("%/fontutils.dll", output_directory));
     } else #if OS == .LINUX {
-        return copy_file(tprint("%/linux/libfontutils.so", #filepath), tprint("%/libfontutils.so", output_directory));
+        return copy_file(tprint("%/lib/libfontutils.so", #filepath), tprint("%/libfontutils.so", output_directory));
     } else {
         return true;
     }

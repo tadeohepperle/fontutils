@@ -135,8 +135,6 @@ impl Font {
             return res;
         }
 
-        res.info.kind = GlyphKind::Default;
-
         let (f_metrics, rasterized_buf) = self.font.rasterize(ch, font_size as f32);
         if is_white_space {
             res.info.kind = GlyphKind::Whitespace;
@@ -144,8 +142,17 @@ impl Font {
             return res;
         }
 
+        res.info = GlyphInfo {
+            kind: GlyphKind::Default,
+            xmin: f_metrics.bounds.xmin,
+            ymin: f_metrics.bounds.ymin - f_metrics.bounds.height,
+            width: f_metrics.bounds.width,
+            height: f_metrics.bounds.height,
+            advance: f_metrics.advance_width,
+        };
+
         // otherwise, make the image:
-        if sdf_radius == 0.0 {
+        if sdf_radius <= 0.0 {
             // set the font already:
             res.image = GrayImage::new(
                 rasterized_buf,
@@ -185,16 +192,11 @@ impl Font {
                 sdf_img_width as u32,
                 sdf_img_height as u32,
             );
+            res.info.xmin -= sdf_pad as f32;
+            res.info.ymin -= sdf_pad as f32;
+            res.info.width += (2 * sdf_pad) as f32;
+            res.info.height += (2 * sdf_pad) as f32;
         }
-
-        res.info = GlyphInfo {
-            kind: GlyphKind::Default,
-            xmin: f_metrics.bounds.xmin - sdf_pad as f32,
-            ymin: f_metrics.bounds.ymin - sdf_pad as f32,
-            width: f_metrics.bounds.width + (2 * sdf_pad) as f32,
-            height: f_metrics.bounds.height + (2 * sdf_pad) as f32,
-            advance: f_metrics.advance_width,
-        };
 
         return res;
     }

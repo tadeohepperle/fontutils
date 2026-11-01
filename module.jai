@@ -74,7 +74,7 @@ gray_image_free :: (image: *GrayImage) #foreign libfontutils "gray_image_free";
 #scope_file
 
 #if OS == .WINDOWS {
-    libfontutils :: #library,no_static_library "lib/fontutils.dll.lib";
+    libfontutils :: #library,no_static_library "lib/fontutils";
 } else #if OS == .LINUX {
     libfontutils :: #library,no_static_library "lib/libfontutils";
 }

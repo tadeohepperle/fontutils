@@ -147,7 +147,7 @@ impl Font {
         res.info = GlyphInfo {
             kind: GlyphKind::Default,
             xmin: f_metrics.bounds.xmin,
-            ymin: -(f_metrics.bounds.ymin - f_metrics.bounds.height),
+            ymin: -(f_metrics.bounds.ymin + f_metrics.bounds.height),
             width: f_metrics.bounds.width,
             height: f_metrics.bounds.height,
             advance: f_metrics.advance_width,

@@ -9,7 +9,7 @@ Bindings for the Jai programming language. I don't want to rewrite all these wel
 
 
 On Linux:
-```
+```sh
 
 # for linux:
 cargo build --release

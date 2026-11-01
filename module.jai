@@ -71,6 +71,21 @@ atlas_deallocate_tile :: (atlas: *Atlas, id: u32) -> bool #foreign libfontutils;
 font_create_from_ttf_bytes :: (ttf_bytes: [] u8, error: *string) -> *Font #foreign libfontutils "font_create_from_ttf_bytes";
 gray_image_free :: (image: *GrayImage) #foreign libfontutils "gray_image_free";
 
+// copies the shared library to the output dir next such that it is next to the executable
+// call at build time
+copy_shared_library :: (output_directory: string) -> bool {
+    #import "Basic";
+    #import "File_Utilities";
+    #if OS == .WINDOWS {
+        return copy_file(tprint("%/lib/fontutils.dll", #filepath), tprint("%/fontutils.dll", output_directory));
+    } else #if OS == .LINUX {
+        return copy_file(tprint("%/linux/libfontutils.so", #filepath), tprint("%/libfontutils.so", output_directory));
+    } else {
+        return true;
+    }
+}
+
+
 #scope_file
 
 #if OS == .WINDOWS {
